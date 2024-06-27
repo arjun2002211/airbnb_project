@@ -1,0 +1,119 @@
+<% layout('/layouts/boilerplate') -%>
+    <script>
+        let mapToken = '<%= process.env.MAP_TOKEN %>';
+        let longitude = "<%= data[0].lon %>"
+        let latitude = "<%= data[0].lat %>"
+        let position = "<%= list.location %>"
+    </script>
+    <div class="container">
+        <div class="row d-flex flex-direction-column justify-content-center mt-3">
+            <div class="col-sm-11 col-md-9 col-lg-7 ">
+                <h1>Listing Details</h1>
+                <div class="card">
+                    <img src="<%=list.image.url%>" class="card-img-top card-img-bottom show-page-img"
+                        alt="listing image">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= list.title %>
+                        </h5>
+                        <p class="card-text">
+                            Owned By : <%= list.owner.username %> <br>
+                                <%= list.description %> <br>
+                                    &#x20b9;<%= list.price.toLocaleString('en-IN')%>/ night <br>
+                                        <%= list.location %> <br>
+                                            <%= list.country %>
+                        </p>
+                        <%if(currentuser && currentuser._id.equals(list.owner._id)){%>
+                            <a href="/listing/edit/<%= list._id %>" class="btn btn-dark">Edit</a>
+                            <form action="/listing/delete/<%= list._id %>?_method=DELETE" method="post"
+                                class="d-inline-block">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                            <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% if(list.reviews.length>0) { %>
+            <div class="row d-flex justify-content-center mt-3">
+                <div class="col-md-7">
+                    <h3>Reviews</h3>
+                    <div class="row row-cols-md-2 d-flex justify-content-center g-3">
+                        <% for(review of list.reviews) { %>
+                            <div class="col-md-6">
+                                <div class="card border h-100">
+                                    <div class="card-header">Reviewed by: @<%= review.author.username %>
+                                    </div>
+                                    <div class="card-body">
+                                        Ratings:
+                                        <p class="starability-result card-text" data-rating="<%=review.rating%>"></p>
+                                        <p class="m-0 card-text">
+                                            <%=review.comment%>
+                                        </p>
+                                        <% if( currentuser){%>
+                                            <form
+                                                action="/listing/<%= list._id %>/review/<%= review._id %>?_method=DELETE"
+                                                method="post">
+                                                <button class=" btn btn-danger">Delete</button>
+                                            </form>
+                                            <%}%>
+                                    </div>
+                                    <div class="card-footer">
+                                        <%=review.createdAt.toString().split(" ").slice(1,4).join(" -")%>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+                <div class="row m-0 d-flex justify-content-center mt-3 mb-2">
+                    <div class="col-md-5">
+                        <% if (currentuser) { %>
+                            <form action="/listing/<%= list._id %>/review" method="post"
+                                class="py-3 needs-validation mb-3" novalidate id="review-form">
+                                <h3>Leave a Review</h3>
+                                <div>
+                                    <fieldset class="starability-basic">
+                                        <legend class="w-100">rating:</legend>
+                                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0"
+                                            checked aria-label="No rating." />
+
+                                        <input type="radio" id="rate1" name="rating" value="1" />
+                                        <label for="rate1">1 star.</label>
+
+                                        <input type="radio" id="rate2" name="rating" value="2" />
+                                        <label for="rate2">2 stars.</label>
+
+                                        <input type="radio" id="rate3" name="rating" value="3" />
+                                        <label for="rate3">3 stars.</label>
+
+                                        <input type="radio" id="rate4" name="rating" value="4" />
+                                        <label for="rate4">4 stars.</label>
+
+                                        <input type="radio" id="rate5" name="rating" value="5" />
+                                        <label for="rate5">5 stars.</label>
+
+                                        <span class="starability-focus-ring"></span>
+                                    </fieldset>
+                                </div>
+                                <div>
+                                    <label for="comment" class="form-label m-0">comments</label>
+                                    <textarea name="comment" id="commentx" class="form-control" required></textarea>
+                                    <div class="invalid-feedback">Please write some comment</div>
+                                </div>
+
+                                <br>
+                                <button class="btn btn-dark ">Submit</button>
+                            </form>
+                            <% } %>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-7 mb-4">
+                        <div id="map" class="border border-grey"></div>
+                    </div>
+                </div>
+    </div>
+    <script src="/js/map.js"></script>

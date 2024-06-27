@@ -1,0 +1,58 @@
+
+.img{
+    /* width: 20rem !important; */
+    height: 15rem !important;
+    object-fit: cover !important;
+}
+body{
+    margin-bottom: 50px;
+}
+nav{
+    position: sticky
+}
+img:hover{
+    cursor: pointer;
+}
+.card{
+    border: none;
+}
+.card-img-overlay{
+    height: 15rem !important;
+    background-color: white;
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    /* background-color: white; */
+}
+footer{
+    background-color: rgb(226, 226, 226);
+    bottom : 0px;
+    position: fixed;;
+    width: 100%;
+
+}
+
+
+/* show page */
+
+.show-page-img{
+
+    height: 20rem !important;
+    object-fit: cover;
+
+}
+
+/* error page styling */
+.error-alert {
+    height: 80vh;
+    color: green;
+    font-weight: bold;
+}
+
+/* body { margin: 0; padding: 0; } */
+
+#map { 
+    height:20rem;
+    width: 100%;
+}

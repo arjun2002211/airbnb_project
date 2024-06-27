@@ -1,0 +1,40 @@
+<% layout("/layouts/boilerplate") -%>
+
+    <body>
+        <div class="contaier">
+            <h1 class="text-center">SignUp Form</h1>
+            <div class="row m-0 d-flex justify-content-center">
+                <div class="col-6">
+                    <form action="/signup" method="post" class="border p-2 needs-validation" novalidate>
+                        <div>
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" name="username" id="username" placeholder="enter the username"
+                                class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please enter username
+                            </div>
+                        </div>
+                        <div>
+                            <label for="username" class="form-label">Email</label>
+                            <input type="email" name="email" id="email" placeholder="enter the email"
+                                class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please enter email
+                            </div>
+                        </div>
+                        <div>
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" id="password" placeholder="enter the password"
+                                class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please enter password
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-success my-2">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
