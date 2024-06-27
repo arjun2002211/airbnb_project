@@ -1,34 +1,42 @@
-
-.img{
+.img {
     /* width: 20rem !important; */
     height: 15rem !important;
     object-fit: cover !important;
 }
-body{
+
+body {
     margin-bottom: 50px;
+    height: 100vh;
 }
-nav{
+
+nav {
     position: sticky
 }
-img:hover{
+
+img:hover {
     cursor: pointer;
 }
-.card{
+
+.card {
     border: none;
 }
-.card-img-overlay{
+
+.card-img-overlay {
     height: 15rem !important;
     background-color: white;
     opacity: 0;
 }
-.card-img-overlay:hover{
+
+.card-img-overlay:hover {
     opacity: 0.2;
     /* background-color: white; */
 }
-footer{
+
+footer {
     background-color: rgb(226, 226, 226);
-    bottom : 0px;
-    position: fixed;;
+    bottom: 0px;
+    position: fixed;
+    ;
     width: 100%;
 
 }
@@ -36,7 +44,7 @@ footer{
 
 /* show page */
 
-.show-page-img{
+.show-page-img {
 
     height: 20rem !important;
     object-fit: cover;
@@ -52,7 +60,12 @@ footer{
 
 /* body { margin: 0; padding: 0; } */
 
-#map { 
-    height:20rem;
+#map {
+    height: 20rem;
     width: 100%;
+}
+
+/* login/signup form  */
+.login-form-row, .signup-form-row{
+    height: 70vh;
 }
