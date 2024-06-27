@@ -71,11 +71,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// root route
-app.get('/',  wrapAsync(async (req, res) => {
-    let allListings = await listing.find({});
-    res.render('index.ejs', { allListings });
-}));
+
 
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
@@ -98,6 +94,11 @@ app.use('/listing/:id/review', reviewsRouter);
 app.use('/listing', listingsRouter);
 app.use('/', userRouter);
 
+// root route
+app.get('/',  wrapAsync(async (req, res) => {
+    let allListings = await listing.find({});
+    res.render('index.ejs', { allListings });
+}));
 // home route
 app.get('/home', wrapAsync(async (req, res) => {
     let allListings = await listing.find({});
