@@ -72,9 +72,10 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // root route
-app.get('/', (req, res) => {
-    res.send("hi this is root path <br> <h1> To see this tutorial go to '/home'</h1>")
-});
+app.get('/', wrapAsync(async (req, res) => {
+    let allListings = await listing.find({});
+    res.render('index.ejs', { allListings });
+}));
 
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
