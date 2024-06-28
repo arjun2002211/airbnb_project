@@ -30,7 +30,7 @@ module.exports.showListings = async (req, res, next) => {
             res.redirect('/home')
         }
         // console.log(currentuser);
-        res.render('show.ejs', { list, data});
+        res.render('show.ejs', { list, data });
     }
     catch (err) {
         throw new ExpressError('page not found', 400);
@@ -47,15 +47,17 @@ module.exports.createNewListing = async (req, res, next) => {
     if (result.error) {
         throw new ExpressError(result.error, 400);
     }
+    console.log(req.file);
     let newlist = new listing(req.body);
     if (req.file) {
-        let url = req.file.path;
-        let filename = req.file.filename;
+        let filename = req.file.originalname;
+        let url = req.file.secure_url;
         newlist.image.url = url;
         newlist.image.filename = filename;
+        // await newlist.save();
     };
     newlist.owner = req.user._id;
-    newlist.geometry = { type: "Point", coordinates: [CoordinateResult[0].lon,CoordinateResult[0].lat] }
+    newlist.geometry = { type: "Point", coordinates: [CoordinateResult[0].lon, CoordinateResult[0].lat] }
     let savedList = await newlist.save();
     console.log(savedList);
     req.flash('success', 'new listing created');
@@ -70,16 +72,16 @@ module.exports.editListing = async (req, res, next) => {
         throw new ExpressError(result.error, 400);
     }
     let newlist = await listing.findByIdAndUpdate(id, { ...req.body }, { runValidators: true, new: true, });
-    console.log(req.file)
+    // console.log(req.file)
     if (req.file) {
-        let filename = req.file.filename;
-        let url = req.file.path;
+        let filename = req.file.originalname;
+        let url = req.file.secure_url;
         newlist.image.filename = filename;
         newlist.image.url = url;
         // await newlist.save();
     }
     await newlist.save();
-    console.log(newlist)
+    console.log(newlist);
     req.flash('success', 'Listing Updated');
     res.redirect(`/listing/show/${id}`);
 };
